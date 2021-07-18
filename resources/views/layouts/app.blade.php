@@ -7,6 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta name="api_token" content="PFhy4Y3GjPrWE4JpLupaWiQHQwZeS3H2gi4pamTOG40tSjZ2qMX9bHvDA8uugM4XF3tL7E7EVGrKsRcO">
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->

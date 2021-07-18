@@ -13,4 +13,16 @@ class Category extends Model
         'name',
         'slug',
     ];
+
+    protected $guarded = [
+        'id',
+    ];
+
+    protected $hidden = [
+        'id', 'created_at', 'updated_at'
+    ];
+
+    public function movies() {
+        return $this->hasMany(Movie::class);
+    }
 }

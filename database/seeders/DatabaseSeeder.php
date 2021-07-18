@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'email' => 'admin@example.com',
             'password' => Hash::make('Kumanovo1.'),
+            'api_token' => 'PFhy4Y3GjPrWE4JpLupaWiQHQwZeS3H2gi4pamTOG40tSjZ2qMX9bHvDA8uugM4XF3tL7E7EVGrKsRcO',
         ]);
         User::factory(10)->create();
 
