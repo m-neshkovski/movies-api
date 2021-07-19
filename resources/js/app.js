@@ -37,7 +37,9 @@ if($('#welcome').length > 0) {
             });
         } else {
             $('#movie-cards').html(`
-                <p class="text-center">No search resaults.</p>
+                    <div class='col-md-12 text-center'>
+                        <p class="text-center">No search resaults.</p>
+                    </div>
             `)
         }
 
@@ -46,7 +48,17 @@ if($('#welcome').length > 0) {
 
     $.get('/api/v1/movies?api_token=' + api_token)
     .then(function(data) {
-        refreshCards(data.data)
+        if(data.code == 200) {
+            refreshCards(data.data)
+        }
+
+        if (data.code == 403) {
+            $('#movie-cards').html(`
+                <div class='col-md-12 text-center'>
+                    <p class="text-center">${data.code} ${data.message}</p>
+                </div>
+            `)
+        }
     })
     
     $('#filter').on('submit', function(e) {
@@ -59,7 +71,17 @@ if($('#welcome').length > 0) {
         let category = $('#category').val()
         $.get(`/api/v1/movies?search_title=${search_title}&category=${category}&api_token=${api_token}`)
         .then(function(data) {
-            refreshCards(data.data)
+            if (data.code == 200) {
+                refreshCards(data.data)
+            }
+
+            if (data.code == 403) {
+                $('#movie-cards').html(`
+                    <div class='col-md-12 text-center'>
+                        <p class="text-center">${data.code} ${data.message}</p>
+                    </div>
+                `)
+            }
         })
     })
     
@@ -69,7 +91,17 @@ if($('#welcome').length > 0) {
         let search_title = $('#search_title').val()
         $.get(`/api/v1/movies?search_title=${search_title}&category=${category}&api_token=${api_token}`)
         .then(function(data) {
-            refreshCards(data.data)
+            if (data.code == 200) {
+                refreshCards(data.data)
+            }
+
+            if (data.code == 403) {
+                $('#movie-cards').html(`
+                    <div class='col-md-12 text-center'>
+                        <p class="text-center">${data.code} ${data.message}</p>
+                    </div>
+                `)
+            }
         })
     })
 
@@ -77,17 +109,28 @@ if($('#welcome').length > 0) {
         e.preventDefault()
         $.get(`/api/v1/movies/${$(e.target).attr('data-slug')}?api_token=${api_token}`)
         .then(function(data) {
-            $('#detailsModalLabel').text('Movie: ' + data.data.title)
-            $('#modal-img').attr('src', data.data.img_url)
-            $('#modal-details').html(`
-                <h3>Details:</h3>
-                <ul>
-                    <li class="h4">Regerene code: <span class="font-weight-bold">${data.data.reference_code}</span></li>
-                    <li class="h4">Category: <span class="font-weight-bold">${data.data.category.name}</span></li>
-                    <li class="h4">Year released: <span class="font-weight-bold">${data.data.release_year}</span></li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis aliquid excepturi beatae unde rem corrupti. Expedita ut numquam ex harum sapiente, magni, rerum nisi vero quo illo molestias, repudiandae esse!</p>
-            `)
+            if(data.code == 200) {
+                $('#detailsModalLabel').text('Movie: ' + data.data.title)
+                $('#modal-img').attr('src', data.data.img_url)
+                $('#modal-details').html(`
+                    <h3>Details:</h3>
+                    <ul>
+                        <li class="h4">Regerene code: <span class="font-weight-bold">${data.data.reference_code}</span></li>
+                        <li class="h4">Category: <span class="font-weight-bold">${data.data.category.name}</span></li>
+                        <li class="h4">Year released: <span class="font-weight-bold">${data.data.release_year}</span></li>
+                    </ul>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis aliquid excepturi beatae unde rem corrupti. Expedita ut numquam ex harum sapiente, magni, rerum nisi vero quo illo molestias, repudiandae esse!</p>
+                `)
+            }
+
+            if(data.code == 403) {
+                $('#detailsModalLabel').text('ERROR CODE: ' + data.code)
+                $('#modal-body').html(`
+                    <div class='col-md-12 text-center'>
+                        <h3>${data.message}</h3>
+                    </div>
+                `);
+            }
         })
     })
 

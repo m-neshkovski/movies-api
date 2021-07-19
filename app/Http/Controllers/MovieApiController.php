@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Movie;
+use Exception;
 use Illuminate\Http\Request;
 
 class MovieApiController extends Controller
@@ -32,9 +33,15 @@ class MovieApiController extends Controller
     }
 
     public function categories() {
-        return response()->json([
-            'code' => 200,
-            'data' => Category::all(),
-        ]);
+        try {
+            $response = response()->json([
+                'code' => 200,
+                'data' => Category::all(),
+            ]);
+        } catch (Exception $e) {
+            $response = response()->json($e);
+        }
+
+        return $response;
     }
 }

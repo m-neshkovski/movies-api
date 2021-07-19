@@ -38,7 +38,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div id="model-body" class="modal-body">
             <div class="row">
                 <div class="col-md-6">
                     <img id="modal-img" class="img-fluid" src="" alt="Movie img">
