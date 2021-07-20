@@ -23,7 +23,6 @@ class MovieFactory extends Factory
      */
     public function definition()
     {
-
         $title = ucwords($this->faker->words(3, true));
 
         return [
@@ -31,7 +30,7 @@ class MovieFactory extends Factory
             'title' => $title,
             'slug' => Str::slug($title),
             'category_id' => Category::inRandomOrder()->first()->id,
-            'img_url' => 'https://images.freecreatives.com/wp-content/uploads/2017/10/flat-clapperboard-icon_1063-38.jpg',
+            'img_url' => 'img/movie-image.jpg',
             'release_year' => $this->faker->year(),
         ];
     }

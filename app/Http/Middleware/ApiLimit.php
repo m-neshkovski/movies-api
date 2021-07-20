@@ -9,19 +9,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ApiLimit
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->api_limit > 0) {
-            $user = Auth::user();
-            $user->api_limit--;
-            $user->save();
+        $user = Auth::user();
+
+        if($user->api_limit > 0) {
+            if(! $user->is_admin) {
+                $user = Auth::user();
+                $user->api_limit--;
+                $user->save();
+            }
         } else {
             return response()->json([
                 'code' => 403,

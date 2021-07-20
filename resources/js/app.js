@@ -10,6 +10,13 @@ if($('#welcome').length > 0) {
             $('#category').append(`<option value="${cat.slug}">${cat.name}</option>`)            
         });
     })
+    .fail(function(err) {
+        $('#movie-cards').html(`
+                <div class='col-md-12 text-center'>
+                    <p class="text-center">${err.status} ${err.responseJSON.message}</p>
+                </div>
+            `)
+    })
 
     function refreshCards(arr) {
         if(arr.length > 0) {
@@ -42,7 +49,6 @@ if($('#welcome').length > 0) {
                     </div>
             `)
         }
-
         return true
     }
 
@@ -59,6 +65,13 @@ if($('#welcome').length > 0) {
                 </div>
             `)
         }
+    })
+    .fail(function(err) {
+        $('#movie-cards').html(`
+                <div class='col-md-12 text-center'>
+                    <p class="text-center">${err.status} ${err.responseJSON.message}</p>
+                </div>
+            `)
     })
     
     $('#filter').on('submit', function(e) {
@@ -83,9 +96,16 @@ if($('#welcome').length > 0) {
                 `)
             }
         })
+        .fail(function(err) {
+            $('#movie-cards').html(`
+                    <div class='col-md-12 text-center'>
+                        <p class="text-center">${err.status} ${err.responseJSON.message}</p>
+                    </div>
+                `)
+        })
     })
     
-    $('#filter').on('change', function(e) {
+    $('#category').on('change', function(e) {
         e.preventDefault();
         let category = $(e.target).val()
         let search_title = $('#search_title').val()
@@ -102,6 +122,13 @@ if($('#welcome').length > 0) {
                     </div>
                 `)
             }
+        })
+        .fail(function(err) {
+            $('#movie-cards').html(`
+                    <div class='col-md-12 text-center'>
+                        <p class="text-center">${err.status} ${err.responseJSON.message}</p>
+                    </div>
+                `)
         })
     })
 
@@ -122,7 +149,6 @@ if($('#welcome').length > 0) {
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis aliquid excepturi beatae unde rem corrupti. Expedita ut numquam ex harum sapiente, magni, rerum nisi vero quo illo molestias, repudiandae esse!</p>
                 `)
             }
-
             if(data.code == 403) {
                 $('#detailsModalLabel').text('ERROR CODE: ' + data.code)
                 $('#modal-body').html(`
@@ -132,6 +158,31 @@ if($('#welcome').length > 0) {
                 `);
             }
         })
+        .fail(function(err) {
+            $('#detailsModalLabel').text('ERROR CODE: ' + err.status)
+            $('#modal-body').html(`
+                <div class='col-md-12 text-center'>
+                    <h3>${err.responseJSON.message}</h3>
+                </div>
+            `);
+        })
+    })
+
+}
+
+if($('#home').length > 0) {
+    
+    $('.copyBtn').on('click', function(e) {
+        e.preventDefault();
+        let copyTxtInput = $(e.target.parentElement).prev();
+        copyTxtInput.select();
+        document.execCommand('copy');
+        $(e.target.parentElement.parentElement).after(`
+            <small id="copyHelp" class="form-text text-danger text-center m-0 p-0">API token coppied to clipboard.</small>
+        `)
+        setTimeout(() => {
+            $('#copyHelp').remove()
+        }, 3000);
     })
 
 }

@@ -23,7 +23,7 @@ class Movie extends Model
     ];
 
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'category_id'
+        'created_at', 'updated_at', 'category_id'
     ];
 
     protected $with = [

@@ -5,6 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12 text-center py-3">
             <h1>Search movies by title and/or category</h1>
+            <p>Simple API for movies. See how it works here or <a href="{{ route('register') }}">Register</a> to get 1000 responses for FREE.</p>
         </div>
         <div class="col-md-8">
             <form id="filter">
