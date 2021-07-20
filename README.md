@@ -1,3 +1,25 @@
+## Install and local test of the code
+
+This was an assignment done for interview purposes, called Simple Movie API.
+
+Installation assuming you have Composer and Node.js installed, installatin takes a sec, follow this steps:
+
+- On your machine create an empty folder and navigate to it,
+- in Terminal run: "git clone https://github.com/m-neshkovski/movies-api.git ."
+- then run: "composer install"
+- then run: "npm install && npm run dev"
+- then run: "cp .env.example .env"
+- then run: "php artisan key:generate"
+- now you have to create a local DB and update .env for credentials.
+- after witch in Terminal run: "php artisan migrate && php artisan db:seed"
+- and finally run: "php artisan serve"
+
+In terminal you will get an url, where you can test the code. From the seeder you have two users admin@example.com/password and user@example.com/password or you can register more.
+
+ENJOY TESTING lol
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
