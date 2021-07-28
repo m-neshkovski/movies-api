@@ -4,6 +4,8 @@ if($('#welcome').length > 0) {
 
     var api_token = $('meta[name="api_token"]').attr('content');
 
+    $('#search_title').val('');
+
     $.get(`/api/v1/categories?api_token=${api_token}`)
     .then(function(data) {
         data.data.forEach(cat => {

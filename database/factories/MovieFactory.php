@@ -29,7 +29,7 @@ class MovieFactory extends Factory
             'reference_code' => Str::random(10),
             'title' => $title,
             'slug' => Str::slug($title),
-            'category_id' => Category::inRandomOrder()->first()->id,
+            // 'category_id' => Category::inRandomOrder()->first()->id,
             'img_url' => 'img/movie-image.jpg',
             'release_year' => $this->faker->year(),
         ];

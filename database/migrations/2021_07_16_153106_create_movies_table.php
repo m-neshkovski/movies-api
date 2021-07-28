@@ -18,7 +18,7 @@ class CreateMoviesTable extends Migration
                 $table->string('reference_code')->unique();
                 $table->string('title');
                 $table->string('slug')->unique();
-                $table->foreignId('category_id');
+                // $table->foreignId('category_id');
                 $table->string('img_url');
                 $table->year('release_year');
             $table->timestamps();

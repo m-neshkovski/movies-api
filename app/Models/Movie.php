@@ -27,7 +27,7 @@ class Movie extends Model
     ];
 
     protected $with = [
-        'category',
+        'categories',
     ];
 
     public function scopeFilter($query, array $filters)
@@ -39,19 +39,14 @@ class Movie extends Model
 
         $query->when($filters['category'] ?? false, fn($query, $category) => 
         
-            $query->whereHas('category', fn($query) =>
-                $query->where('slug', $category)
+            $query->whereHas('categori', fn($query) =>
+                $query->where('slug', 'like', '%' . $category . '%')
             )
         );
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
-    public function category() {
-        return $this->belongsTo(Category::class);
+    public function categories() {
+        return $this->belongsToMany(Category::class);
     }
 
 }

@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-        Category::truncate();
-        Movie::truncate();
+        // User::truncate();
+        // Category::truncate();
+        // Movie::truncate();
 
         User::factory()->create([
             'email' => 'admin@example.com',
@@ -34,7 +34,14 @@ class DatabaseSeeder extends Seeder
 
         Category::factory(10)->create();
 
-        Movie::factory(100)->create();
+        for($i=0; $i<100 ;$i++) {
+            $categories = Category::inRandomOrder()->limit(3)->get();
+
+            Movie::factory()
+            ->hasAttached($categories)
+            ->create();
+        }
+
 
     }
 }
